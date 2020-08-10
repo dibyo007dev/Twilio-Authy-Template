@@ -74,38 +74,11 @@ router.route('/login').post(users.login);
 router.route('/authy/sms').post(users.sms);
 router.route('/authy/voice').post(users.voice);
 router.route('/authy/verify').post(users.verify);
-router.route('/authy/onetouchstatus').post(users.checkonetouchstatus);
-router.route('/authy/onetouch').post(users.createonetouch);
 
 router.route('/loggedIn').post(users.loggedIn);
 
-/**
- * Authy Phone Verification API
- */
-router.route('/verification/start').post(users.requestPhoneVerification);
-router.route('/verification/verify').post(users.verifyPhoneToken);
 
-/**
- * Lookups
- */
-router.route('/lookup').post(users.lookupNumber);
 
-/**
- * Require user to be logged in and authenticated with 2FA
- *
- * @param req
- * @param res
- * @param next
- */
-function requirePhoneVerification(req, res, next) {
-    if (req.session.ph_verified) {
-        console.log("Phone Verified");
-        next();
-    } else {
-        console.log("Phone Not Verified");
-        res.redirect("/verification");
-    }
-}
 /**
  * Require user to be logged in and authenticated with 2FA
  *
